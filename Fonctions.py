@@ -7,14 +7,14 @@ def AjouterUtilisateur():
     nom = input('-')
     print("Prénom:")
     prenom = input('-')
+    print("Surnom:")
+    pseudo = input('-')
     print("E-mail:")
     email = input('-')
-    print("Numéro de téléphone:")
-    tel = input('-')
     print("Mot de passe de", nom, ":")
     mdp = input('-')
 
-    membre = mbr.CMember(nom, prenom, email, tel, mdp, "user")
+    membre = mbr.CMember(nom, prenom,pseudo, email, mdp, "0")
     return membre
 
 def AjouterAdmin():
@@ -23,14 +23,14 @@ def AjouterAdmin():
     nom = input('-')
     print("Prénom:")
     prenom = input('-')
+    print("Surnom:")
+    pseudo = input('-')
     print("E-mail:")
     email = input('-')
-    print("Numéro de téléphone:")
-    tel = input('-')
     print("Mot de passe de", nom, ":")
     mdp = input('-')
 
-    membre = mbr.CMember(nom, prenom, email, tel, mdp, "Admin")
+    membre = mbr.CMember(nom, prenom,pseudo, email, mdp, "1")
     return membre
 
 def ModifMember(liste_m):
@@ -56,10 +56,10 @@ def ModifMember(liste_m):
             liste_m[value2].mname = input('-')
             print("Nouveau prénom:")
             liste_m[value2].mprenom = input('-')
+            print("Nouveau surnom:")
+            liste_m[value2].mpseudo = input('-')
             print("Nouveau e-mail:")
             liste_m[value2].memail = input('-')
-            print("Nouveau numéro de téléphone:")
-            liste_m[value2].mtel = input('-')
             print("Nouveau mot de passe de", liste_m[value2].mname, ":")
             liste_m[value2].mdp = input('-')
 
