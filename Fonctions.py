@@ -1,4 +1,5 @@
 import CMembre as mbr
+import CRecette as rct
 
 
 def AjouterUtilisateur():
@@ -89,3 +90,55 @@ def DelMember(liste_m):
             print(liste_m[position].mname, liste_m[position].mprenom, "vient d'être supprimé(e).")
             del liste_m[position]
 
+def AjouterIngredient(liste_ingredient):
+    print("\nAjout d'un ingrédient.")
+    print("Ingrédient :")
+    ingredient = input('-')
+    ajout = 0
+    for i in range(len(liste_ingredient)):
+        if (liste_ingredient[i].inom == ingredient):
+            liste_ingredient[i].inom += int(quantite)
+            ajout = 1
+
+    if (ajout == 0):
+        ingredient_ajoute = rct.CIngredient(ingredient, quantite)
+        listeliste_ingredient.append()
+
+
+
+def AjouterRecette(liste_recette, auteur):
+    print("\nCréation d'une recette.")
+    print("Nom de la recette :")
+    listeingredient = []
+    
+    i = 0
+    while(i == 0):
+        recette = input('-')    # On entre le nom de la recette
+        for j in range(len(liste_recette)):
+            if (liste_recette[j].rnom == recette):  # Si une recette de ce nom existe déjà on recommence
+                print("\nCette recette est déjà créé veuillez réentrez un nom de recette :")
+                i = 0;
+                break;
+            else:
+                i = 1
+
+    i = 0
+    while(i == 0):
+        print("Ajouter un ingrédient à la recette:")
+        print("\t (1) - Oui")
+        print("\t (2) - Non")
+        decision = input('-')
+        if (decision == "1"):
+            print("Nom de l'ingrédient:")
+            ningredient = input('-')
+            print("Quantite :")
+            qingredient = input('-')
+            ingredient = rct.CIngredient(ningredient,qingredient)
+            liste_ingredient.append(ingredient)
+        elif (decision == "2"):
+            i = 1
+        else:
+            print("Chaine non reconnu veuillez recommencez s'il vous plaît")
+    
+    print("Ajout de la recette " + recette + " de " + auteur)
+    liste_recette.append(rct.CRecette(recette,liste_ingredient,auteur)
