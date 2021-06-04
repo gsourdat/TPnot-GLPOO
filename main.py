@@ -9,6 +9,7 @@ liste_ingredient = []
 liste_recette = []
 stop = 1
 
+
 while stop:
 
     print("Que voulez vous faire ?")
@@ -49,8 +50,8 @@ while stop:
         input()
 
     if value == "5":
-        recette = fct.AjouterRecette(liste_recette, current_user)
-        liste_recette.append(recette)
+       
+        liste_recette.append(fct.AjouterRecette(liste_recette, current_user))
         input()
 
 

@@ -109,19 +109,21 @@ def AjouterIngredient(liste_ingredient):
 def AjouterRecette(liste_recette, auteur):
     print("\nCréation d'une recette.")
     print("Nom de la recette :")
-    listeingredient = []
+    liste_ingredient = []
     
     i = 0
     while(i == 0):
-        recette = input('-')    # On entre le nom de la recette
+        nom_recette = input('-')    # On entre le nom de la recette
+        print(i)
+        i=1
         for j in range(len(liste_recette)):
             if (liste_recette[j].rnom == recette):  # Si une recette de ce nom existe déjà on recommence
                 print("\nCette recette est déjà créé veuillez réentrez un nom de recette :")
                 i = 0;
                 break;
-            else:
-                i = 1
 
+    print("Description de la recette")
+    description_recette = input('-')
     i = 0
     while(i == 0):
         print("Ajouter un ingrédient à la recette:")
@@ -140,5 +142,6 @@ def AjouterRecette(liste_recette, auteur):
         else:
             print("Chaine non reconnu veuillez recommencez s'il vous plaît")
     
-    print("Ajout de la recette " + recette + " de " + auteur)
-    liste_recette.append(rct.CRecette(recette,liste_ingredient,auteur)
+    print("Ajout de la recette " + nom_recette + " de " + auteur)
+    recette = rct.CRecette(nom_recette,description_recette,liste_ingredient,auteur)
+    return recette
