@@ -1,10 +1,11 @@
 import sys
-from vue.general import general
+from vue.window import BasicWindow
 from controller.user_controller import UserController
+from PySide6.QtWidgets import QMainWindow, QApplication, QTextEdit, QPushButton, QHBoxLayout, QWidget, QVBoxLayout,QToolTip, QLineEdit, QLabel, QCheckBox, QComboBox
 
 
 
-class listerecettes(general):
+class listerecettes(BasicWindow):
   def __init__(self):
     super().__init__()
     self.setUI()
@@ -37,27 +38,26 @@ class listerecettes(general):
                 
     w=QWidget()
     w.setLayout(hbox)
-                
-    self.setCentralWidget(w)
+    vbox.addWidget(w)
+    #self.setCentralWidget(w)
                 
     #Définition des actions
-    exitAction=QAction('&Exit', self)
-    exitAction.setShortcut('Ctrl-Q')
-    exitAction.setStatusTip("Quitter l'application")
-    exitAction.triggered.connect(qApp.exit)
+    #exitAction=QAction('&Exit', self)
+    #exitAction.setShortcut('Ctrl-Q')
+    #exitAction.setStatusTip("Quitter l'application")
+    #exitAction.triggered.connect(qApp.exit)
                 
-    menu=self.menuBar()
-    fichierMenu=menu.addMenu("&Fichier")
-    fichierMenu.addAction(exitAction)
+    #☻menu=self.menuBar()
+    #fichierMenu=menu.addMenu("&Fichier")
+    #fichierMenu.addAction(exitAction)
                 
-    self.barreOutils=self.addToolBar('Quitter')
-    self.barreOutils.addAction(exitAction)
+    #self.barreOutils=self.addToolBar('Quitter')
+    #self.barreOutils.addAction(exitAction)
                 
     self.setGeometry(300,300,500,250)
     self.setWindowTitle('Fenêtre principale')
-    self.statusBar().showMessage('Barre de statut')
+    self.setLayout(vbox)
+    #self.statusBar().showMessage('Barre de statut')
     self.show()
         
-monApp=QApplication(sys.argv)
-fenetre=Principale()
-sys.exit(monApp.exec_())
+

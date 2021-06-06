@@ -20,23 +20,13 @@ class UserController:
         return user_data
 
     def create_user(nom_U,prenom_U,pseudo_U,mdp_U):
-
-        try:
-            print(nom_U)
-            print(prenom_U)
-            print(pseudo_U)
-            print(mdp_U)
-            utilisateurBDD.setUtilisateur(nom_U,prenom_U,pseudo_U,mdp_U)
-        except Error as e:
-            # log error
-            print(e)
-            raise e
-
+        utilisateurBDD.setUtilisateur(nom_U,prenom_U,pseudo_U,mdp_U)
+        
     #def update_user(self, member_id, member_data):
 
 
     def delete_user(user_id):
-
+        print("fait")
         utilisateurBDD.delUtilisateur(user_id)
 
 
@@ -45,6 +35,13 @@ class UserController:
         # Query database
         user_data = utilisateurBDD.getUserFromPseudoMdp(pseudo,mdp)
         return user_data
+
+    def search_userNP(nom, prenom):
+
+        # Query database
+        user_data = utilisateurBDD.getUserFromNP(nom,prenom)
+        return user_data
+
 
     def _check_profile_data(self, data, update=False):
         name_pattern = re.compile("^[\S-]{2,50}$")
@@ -69,4 +66,3 @@ class UserController:
             if "regex" in specs and isinstance(value, str) and not re.match(specs["regex"], value):
                 raise InvalidData("Invalid value %s" % mandatory)
 
-UserController.create_user("qsdsd","qsdqsds","abc","123")
