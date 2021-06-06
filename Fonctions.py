@@ -144,4 +144,4 @@ def AjouterRecette(liste_recette, auteur):
     
     print("Ajout de la recette " + nom_recette + " de " + auteur)
     recette = rct.CRecette(nom_recette,description_recette,liste_ingredient,auteur)
-    return recette
+    return recette      

@@ -10,8 +10,8 @@ import sys
 
 try:
     mydb = mariadb.connect(
-        user="sourdat",
-        password="nh2m2494",
+        user="root",
+        password="root",
         host="127.0.0.1",
         port=3306,
         database="recettes"

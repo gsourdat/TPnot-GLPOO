@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\model",
+    "\\vue"
   ],
-  "SelectedNode": "\\main.py",
+  "SelectedNode": "\\model\\bdd.py",
   "PreviewInSolutionExplorer": false
 }
