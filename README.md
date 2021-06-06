@@ -6,9 +6,6 @@ Auteur: Grégoire SOURDAT / Alex PALLIER / Eva NGUI / Benjamin LASSEYE
 
 Date  : 06/06/2021
 
-
-
-
 Fonctionnalité :
 
 Pour un utilisateur :
