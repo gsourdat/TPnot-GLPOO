@@ -20,6 +20,7 @@ class UserController:
         return user_data
 
     def create_user(nom_U,prenom_U,pseudo_U,mdp_U):
+<<<<<<< HEAD
 
         try:
             print(nom_U)
@@ -32,11 +33,19 @@ class UserController:
             print(e)
             raise e
 
+=======
+        utilisateurBDD.setUtilisateur(nom_U,prenom_U,pseudo_U,mdp_U)
+        
+>>>>>>> ba18cf895ac0a658a13cd6984568745dccb464bf
     #def update_user(self, member_id, member_data):
 
 
     def delete_user(user_id):
+<<<<<<< HEAD
 
+=======
+        print("fait")
+>>>>>>> ba18cf895ac0a658a13cd6984568745dccb464bf
         utilisateurBDD.delUtilisateur(user_id)
 
 
@@ -46,6 +55,16 @@ class UserController:
         user_data = utilisateurBDD.getUserFromPseudoMdp(pseudo,mdp)
         return user_data
 
+<<<<<<< HEAD
+=======
+    def search_userNP(nom, prenom):
+
+        # Query database
+        user_data = utilisateurBDD.getUserFromNP(nom,prenom)
+        return user_data
+
+
+>>>>>>> ba18cf895ac0a658a13cd6984568745dccb464bf
     def _check_profile_data(self, data, update=False):
         name_pattern = re.compile("^[\S-]{2,50}$")
         type_pattern = re.compile("^(customer|seller)$")
@@ -69,4 +88,7 @@ class UserController:
             if "regex" in specs and isinstance(value, str) and not re.match(specs["regex"], value):
                 raise InvalidData("Invalid value %s" % mandatory)
 
+<<<<<<< HEAD
 UserController.create_user("qsdsd","qsdqsds","abc","123")
+=======
+>>>>>>> ba18cf895ac0a658a13cd6984568745dccb464bf

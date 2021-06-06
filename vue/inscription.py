@@ -4,6 +4,10 @@ from vue.window import BasicWindow
 from PySide6.QtWidgets import QApplication, QVBoxLayout, QPushButton, QFormLayout, QLineEdit
 from controller.user_controller import UserController
 from vue.general import general
+<<<<<<< HEAD
+=======
+from model.bdd import utilisateurBDD
+>>>>>>> ba18cf895ac0a658a13cd6984568745dccb464bf
 
 class inscription(BasicWindow):
     
@@ -50,8 +54,14 @@ class inscription(BasicWindow):
 
 
     def add_user(self):
+<<<<<<< HEAD
         if(self.nom.text() != "" and self.prenom.text() != "" and self.pseudo.text() != "" and self.mdp.text() != ""):
             UserController.create_user(self.nom.text(),self.prenom.text(),self.pseudo.text(),self.mdp.text())
+=======
+        #if(self.nom.text() != "" and self.prenom.text() != "" and self.pseudo.text() != "" and self.mdp.text() != ""):
+            UserController.create_user(self.nom.text(),self.prenom.text(),self.pseudo.text(),self.mdp.text())
+            #print(UserController.get_user(4)[2])
+>>>>>>> ba18cf895ac0a658a13cd6984568745dccb464bf
             self.close()
             print("ajout d'utilisateur réussi")
 

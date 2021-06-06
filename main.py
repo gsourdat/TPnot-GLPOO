@@ -11,6 +11,10 @@ from vue.menu import MenuWindow
 def run():
     # Init db
     #admin_controller = UserController()
+<<<<<<< HEAD
+=======
+    
+>>>>>>> ba18cf895ac0a658a13cd6984568745dccb464bf
     app = QApplication(sys.argv)
 
     menu = MenuWindow()
