@@ -56,6 +56,7 @@ class MenuWindow(BasicWindow):
 
     def testConnect(self):
         if(len(UserController.search_user(self.pseudo.text(),self.mdp.text()))!=0):
+            BasicWindow.idUser = UserController.search_user(self.pseudo.text(),self.mdp.text())[0][0]
             self.principalWindow = general()
             self.principalWindow.show()
 

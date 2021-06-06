@@ -3,7 +3,7 @@ from PySide6.QtGui import QCloseEvent
 
 
 class BasicWindow(QWidget):
-    
+    idUser = None
     def quitEvent(self, event: QCloseEvent):
         reply = QMessageBox.question(self, 'Message', 'Are you sure you want to quit ?',
                                      QMessageBox.Yes | QMessageBox.No, QMessageBox.No)

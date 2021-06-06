@@ -1,18 +1,19 @@
-from PySide6.QtWidgets import QVBoxLayout, QFormLayout, QLineEdit, QPushButton, QMessageBox
+from PySide6.QtWidgets import QVBoxLayout, QFormLayout, QLineEdit, QPushButton, QMessageBox,QComboBox
 from PySide6.QtGui import QCloseEvent
 from vue.window import BasicWindow
 from controller.rec_controller import RecetteController
 from vue.user.delete import DeleteUserQt
 from vue.recette.afficher import AffRecQt
+from vue.recette.afficher2 import AffListRecQt
 
-class SearchRecQt(BasicWindow):
+class SearchRecAliQt(BasicWindow):
 
     def __init__(self, show_vue: BasicWindow = None):
         super().__init__()
         ##
-        self.nom = QLineEdit()
+        #self.nom = QLineEdit()
         self.AffRecWindow = None
-
+        self.ingrédients = QLineEdit()
         self.show_vue = show_vue
         self.setup()
 
@@ -23,7 +24,7 @@ class SearchRecQt(BasicWindow):
         Layout = QFormLayout()
         # Add a label and a line edit to the form layout
 
-        Layout.addRow("Nom", self.nom)
+        Layout.addRow("Ingrédient", self.ingrédients)
 
         # Create a layout for the checkboxes
         ValidationLayout = QVBoxLayout()
@@ -61,10 +62,10 @@ class SearchRecQt(BasicWindow):
                 return member['id']
 
     def searchRec(self):
-        user = RecetteController.search_recettefromNom(self.nom.text())
-        print(user[0][0])
+        #user = RecetteController.search_recettefromNom(self.ingrédients.text())
+        #print(user)
         if self.AffRecWindow is None:
-            self.AffRecWindow = AffRecQt(user[0][0])
+            self.AffRecWindow = AffListRecQt(self.ingrédients.text())
         self.AffRecWindow.show()
         if self.show_vue is not None:
             self.show_vue.refresh()

@@ -1,31 +1,31 @@
-from PySide6.QtWidgets import QListWidget, QGridLayout,  QVBoxLayout, QPushButton, QHBoxLayout
-from vue.user.add import AddUserQt
-from vue.user.edit import EditUserQt
-from vue.user.delete import DeleteUserQt
 from vue.user.search import SearchUserQt
+from PySide6.QtWidgets import QListWidget, QGridLayout,  QVBoxLayout, QPushButton, QHBoxLayout
+
+#from vue.user.search import SearchUserQt
 from vue.window import BasicWindow
-from controller.member_controller import MemberController
+from controller.rec_controller import RecetteController
+from vue.recette.delete import DeleteRecQt
+from vue.recette.add import AddRecQt
+from vue.recette.edit import EditRecQt
 
+class ListRecQt(BasicWindow):
 
-class ListUserQt(BasicWindow):
-
-    def __init__(self, member_controller: MemberController):
+    def __init__(self):
         super().__init__()
-
-        self._member_controller = member_controller
-        self.addUserWindow = None
-        self.editUserWindow = None
-        self.deleteUserWindow = None
-        self.searchUserWindow = None
+        
+        self.addRecWindow = None
+        self.editRecWindow = None
+        self.deleteRecWindow = None
+        #self.searchRecWindow = None
         self.layout = QHBoxLayout()
 
         self.listlayout = QGridLayout()
         self.listwidget = QListWidget()
 
-        self.btn_add_user = QPushButton('Add user', self)
-        self.btn_edit_user = QPushButton('Edit user', self)
-        self.btn_delete_user = QPushButton('Delete user', self)
-        self.btn_search_user = QPushButton('Search user', self)
+        self.btn_add_rec = QPushButton('Ajouter', self)
+        self.btn_edit_rec = QPushButton('Editer', self)
+        self.btn_delete_rec = QPushButton('Supprimer', self)
+        #self.btn_search_rec = QPushButton('Rechercher', self)
 
         self.member_mapping = {}
 
@@ -37,12 +37,10 @@ class ListUserQt(BasicWindow):
 
         self.listwidget.clear()
         index = 0
-        for member in self._member_controller.list_members():
-            self.listwidget.insertItem(index, "* %s %s (%s) - %s" % (
-                member['firstname'],
-                member['lastname'],
-                member['email'],
-                member['type']))
+        for member in RecetteController.search_recettefromAuteur(BasicWindow.idUser):
+            self.listwidget.insertItem(index, "%d - %s" % (
+                member[0],
+                member[1],))
             self.member_mapping[index] = member
             index += 1
 
@@ -54,23 +52,24 @@ class ListUserQt(BasicWindow):
 
     def side_menu(self):
 
-        self.btn_add_user.resize(self.btn_add_user.sizeHint())
-        self.btn_add_user.move(60, 20)
-        self.btn_add_user.clicked.connect(self.add_user)
+        self.btn_delete_rec.resize(self.btn_delete_rec.sizeHint())
+        self.btn_delete_rec.move(60, 60)
+        self.btn_delete_rec.setEnabled(False)
+        self.btn_delete_rec.clicked.connect(self.delete_user)
 
-        self.btn_edit_user.resize(self.btn_edit_user.sizeHint())
-        self.btn_edit_user.move(60, 40)
-        self.btn_edit_user.setEnabled(False)
-        self.btn_edit_user.clicked.connect(self.edit_user)
+        self.btn_add_rec.resize(self.btn_delete_rec.sizeHint())
+        self.btn_add_rec.move(60, 60)
+        self.btn_add_rec.setEnabled(True)
+        self.btn_add_rec.clicked.connect(self.add_user)
 
-        self.btn_delete_user.resize(self.btn_delete_user.sizeHint())
-        self.btn_delete_user.move(60, 60)
-        self.btn_delete_user.setEnabled(False)
-        self.btn_delete_user.clicked.connect(self.delete_user)
+        self.btn_edit_rec.resize(self.btn_delete_rec.sizeHint())
+        self.btn_edit_rec.move(60, 60)
+        self.btn_edit_rec.setEnabled(False)
+        self.btn_edit_rec.clicked.connect(self.edit_user)
 
-        self.btn_search_user.resize(self.btn_edit_user.sizeHint())
-        self.btn_search_user.move(60, 80)
-        self.btn_search_user.clicked.connect(self.search_user)
+        #self.btn_search_rec.resize(self.btn_delete_rec.sizeHint())
+        #self.btn_search_rec.move(60, 80)
+        #self.btn_search_user.clicked.connect(self.search_user)
 
         btn_quit = QPushButton('Close', self)
         btn_quit.clicked.connect(self.close)
@@ -78,44 +77,46 @@ class ListUserQt(BasicWindow):
         btn_quit.move(90, 100)
 
         buttonlayout = QVBoxLayout()
-        buttonlayout.addWidget(self.btn_add_user)
-        buttonlayout.addWidget(self.btn_edit_user)
-        buttonlayout.addWidget(self.btn_delete_user)
-        buttonlayout.addWidget(self.btn_search_user)
+        buttonlayout.addWidget(self.btn_add_rec)
+        buttonlayout.addWidget(self.btn_edit_rec)
+        buttonlayout.addWidget(self.btn_delete_rec)
         buttonlayout.addWidget(btn_quit)
 
         self.setGeometry(100, 100, 200, 150)
-        self.setWindowTitle('User menu')
+        self.setWindowTitle('Mes Recettes')
         self.layout.addLayout(buttonlayout)
 
     def clicked(self):
         item = self.listwidget.currentItem()
-        self.btn_edit_user.setEnabled(True)
-        self.btn_delete_user.setEnabled(True)
+        self.btn_delete_rec.setEnabled(True)
+        self.btn_edit_rec.setEnabled(True)
         print(item.text())
 
     def refresh(self):
         self.list()
         self.show()
 
-    def add_user(self):
-        if self.addUserWindow is None:
-            self.addUserWindow = AddUserQt(self._member_controller, self)
-        self.addUserWindow.show()
-
-    def edit_user(self):
-        if self.editUserWindow is None:
-            user = self.member_mapping[self.listwidget.currentRow()]
-            self.editUserWindow = EditUserQt(self._member_controller, user['id'], self)
-        self.editUserWindow.show()
-
     def delete_user(self):
-        if self.deleteUserWindow is None:
+        if self.deleteRecWindow is None:
             user = self.member_mapping[self.listwidget.currentRow()]
-            self.deleteUserWindow = DeleteUserQt(self._member_controller, user['id'], self)
-        self.deleteUserWindow.show()
+            print(user)
+            self.deleteRecWindow = DeleteRecQt(user[0], self)
+        self.deleteRecWindow.show()
+
+    def add_user(self):
+        if self.addRecWindow is None:
+            print("ee")
+            self.addRecWindow = AddRecQt(self)
+        self.addRecWindow.show()
+    
+    def edit_user(self):
+        if self.editRecWindow is None:
+            user = self.member_mapping[self.listwidget.currentRow()]
+            print(user)
+            self.editRecWindow = EditRecQt(user[0], self)
+        self.editRecWindow.show()
 
     def search_user(self):
         if self.searchUserWindow is None:
-            self.searchUserWindow = SearchUserQt(self._member_controller, self)
+            self.searchUserWindow = SearchUserQt(self)
         self.searchUserWindow.show()

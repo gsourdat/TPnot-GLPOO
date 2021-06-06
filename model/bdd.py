@@ -59,9 +59,9 @@ class IngrédientBDD():
 #RECETTES
 class RecetteBDD():
 
-  def setRecette(data):
+  def setRecette(Nom_R,Description_R,Auteur_R):
     try:
-      mycursor.execute("INSERT INTO recettes (Nom_R,Description_R,Auteur_R) VALUES (?,?,?)", (data.Nom_R,data.Description_R,data.Auteur_R,))
+      mycursor.execute("INSERT INTO recettes (Nom_R,Description_R,Auteur_R) VALUES (?,?,?)", (Nom_R,Description_R,Auteur_R,))
       mydb.commit()
     except mariadb.Error as e:
       print(f"Error: {e}")
@@ -71,6 +71,14 @@ class RecetteBDD():
     myresult = mycursor.fetchall()
     return myresult
 
+  def EditRecette(id_Rec, nom_Rec, desc_Rec):
+    try:
+      mycursor.execute("UPDATE recettes SET Nom_R=? and Description_R=? WHERE id_R=?",(nom_Rec,desc_Rec,id_Rec))
+      mydb.commit()
+    except mariadb.Error as e:
+      print(f"Error: {e}")
+      
+
   def getRecetteFromId(id_R):
     mycursor.execute("SELECT * FROM recettes where id_R=?",(id_R,))
     myresult = mycursor.fetchall()
@@ -78,6 +86,16 @@ class RecetteBDD():
 
   def getRecettesFromAuteur(id_A):
     mycursor.execute("SELECT * FROM recettes where Auteur_R=?",(id_A,))
+    myresult = mycursor.fetchall()
+    return myresult
+
+  def getRecettesFromNom(id_N):
+    mycursor.execute("SELECT * FROM recettes where Nom_R=?",(id_N,))
+    myresult = mycursor.fetchall()
+    return myresult
+
+  def getRecettesFromIngredient(ing):
+    mycursor.execute("SELECT * FROM recettes.recettes natural join quantitéingrédients natural join ingrédients where nom_I=?;",(ing,))
     myresult = mycursor.fetchall()
     return myresult
 
@@ -107,7 +125,8 @@ class RecetteBDD():
     myresult = mycursor.fetchall()
     return myresult
 
-
+  def setIngRec(id_Ing,id_R):
+    mycursor.execute("insert into quantitéingrédients (id_R,id_I,Quantité) values (?,?,?)",(id_R,id_Ing,1))
 #UTILISATEURS
 class utilisateurBDD():
 

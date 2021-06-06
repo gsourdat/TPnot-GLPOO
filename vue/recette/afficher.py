@@ -4,13 +4,14 @@ from vue.window import BasicWindow
 from controller.rec_controller import RecetteController
 
 
-class DeleteRecQt(BasicWindow):
+class AffRecQt(BasicWindow):
     def __init__(self,id: str, show_vue: BasicWindow = None):
         super().__init__()
         self.rec_id = id
         self.nom = QLabel()
         self.desc = QLabel()
-
+        self.ing = QLabel()
+        self.ing.setText("Ingrédients :")
         self.show_vue = show_vue
         self.setup()
         self.fillform()
@@ -22,16 +23,15 @@ class DeleteRecQt(BasicWindow):
         Layout = QVBoxLayout()
         Layout.addWidget(self.nom)
         Layout.addWidget(self.desc)
-
+        Layout.addWidget(self.ing)
+        for i in range(len(RecetteController.getIngRec(self.rec_id))):
+            
+            ing = QLabel()
+            ing.setText(RecetteController.getIngRec(self.rec_id)[i][1])
+            Layout.addWidget(ing)
         # Add a label and a line edit to the form layout
         # Create a layout for the checkboxes
         ValidationLayout = QVBoxLayout()
-
-        btn_delete = QPushButton('Supprimer Recette', self)
-        btn_delete.clicked.connect(self.deleteRec)
-        btn_delete.resize(btn_delete.sizeHint())
-        btn_delete.move(90, 100)
-        ValidationLayout.addWidget(btn_delete)
 
         # Add some checkboxes to the layout
         btn_cancel = QPushButton('Quit', self)
@@ -40,18 +40,13 @@ class DeleteRecQt(BasicWindow):
         btn_cancel.move(90, 100)
         ValidationLayout.addWidget(btn_cancel)
         # Nest the inner layouts into the outer layout
+
         outerLayout.addLayout(Layout)
         outerLayout.addLayout(ValidationLayout)
         # Set the window's main layout
+        self.setWindowTitle('Recette')
         self.setLayout(outerLayout)
 
-    def deleteRec(self):
-        # Show subscription formular
-        RecetteController.delete_recette(self.rec_id)
-        print("fait")
-        if self.show_vue is not None:
-            self.show_vue.refresh()
-        self.close()
 
     def fillform(self):
         print(self.rec_id)
